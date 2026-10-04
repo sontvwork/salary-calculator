@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tính lương · Dogosa</title>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M3 15h18M9 4v5M15 9v6M9 15v5"/></svg>
+        </span>
+        Dogosa <small>Tính lương</small>
+      </a>
+      <nav class="nav">
+        <a href="index.html" class="active">Tính lương</a>
+        <a href="nhan-su.html">Nhân sự</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="page-head">
+      <div>
+        <h1>Bảng lương tháng</h1>
+        <p class="muted">Số liệu tự động lưu trên máy này khi nhập.</p>
+      </div>
+      <button type="button" class="btn btn-danger-ghost" id="resetMonth">Làm mới dữ liệu tháng</button>
+    </div>
+
+    <section class="card empty" id="emptyState" hidden>
+      <div class="empty-icon">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg>
+      </div>
+      <h3>Chưa có nhân sự</h3>
+      <p class="muted">Thêm danh sách nhân sự trước khi tính lương.</p>
+      <a class="btn btn-primary" href="nhan-su.html">Đi tới trang Nhân sự</a>
+    </section>
+
+    <div id="content" hidden>
+      <!-- 1. Ngày công -->
+      <section class="card">
+        <div class="card-head">
+          <span class="step">1</span>
+          <h2>Ngày công</h2>
+          <span class="hint small muted">Đủ ≥ <span id="threshold">26</span> công được thưởng chuyên cần 1 ngày lương</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Họ tên</th>
+                <th>Phân xưởng</th>
+                <th class="num">Lương cứng/ngày</th>
+                <th class="num">Ngày công</th>
+                <th class="num">Lương cứng</th>
+              </tr>
+            </thead>
+            <tbody id="workDayRows"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 2. Sản lượng -->
+      <section class="card">
+        <div class="card-head">
+          <span class="step">2</span>
+          <h2>Sản lượng &amp; quỹ thưởng sản phẩm</h2>
+        </div>
+        <div class="production">
+          <label class="field prod-field">
+            <span>Số sản phẩm trong tháng</span>
+            <input type="number" id="products" class="input input-lg" min="0" step="1" inputmode="numeric" placeholder="0">
+          </label>
+          <div class="prod-op">×</div>
+          <div class="rate">
+            <span class="field-label">Mức thưởng / sản phẩm</span>
+            <div class="rate-box" id="rateView">
+              <span class="rate-value"><b id="rateValue">10</b>k</span>
+              <button type="button" class="icon-btn rate-edit-btn" id="rateEditBtn" title="Sửa mức thưởng" aria-label="Sửa mức thưởng">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+              </button>
+            </div>
+            <div class="rate-box editing" id="rateEdit" hidden>
+              <input type="number" id="rateInput" class="input-cell" min="0" step="1" inputmode="numeric">
+              <span class="muted">k</span>
+            </div>
+          </div>
+          <div class="prod-op">=</div>
+          <div class="prod-total">
+            <span class="field-label">Tổng thưởng cả xưởng</span>
+            <div class="prod-total-value" id="totalBonus">0 đ</div>
+          </div>
+        </div>
+        <div class="stats" id="pools"></div>
+      </section>
+
+      <!-- 3. Mức độ tham gia -->
+      <section class="card">
+        <div class="card-head">
+          <span class="step">3</span>
+          <h2>Mức độ tham gia theo phân xưởng</h2>
+          <span class="hint small muted">Dán cạnh tính theo giờ, các phân xưởng khác tính theo số tấm</span>
+        </div>
+        <div class="ws-grid" id="participation"></div>
+        <div id="wsNotes"></div>
+      </section>
+
+      <!-- 4. Bảng lương -->
+      <section class="card">
+        <div class="card-head">
+          <span class="step">4</span>
+          <h2>Bảng lương</h2>
+        </div>
+        <div id="warnings"></div>
+        <div class="table-wrap">
+          <table class="payroll">
+            <thead>
+              <tr>
+                <th>Họ tên</th>
+                <th class="num">Ngày công</th>
+                <th class="num">Lương cứng</th>
+                <th class="num">Thưởng sản phẩm</th>
+                <th class="num">Chuyên cần</th>
+                <th class="num">Tổng lương</th>
+              </tr>
+            </thead>
+            <tbody id="payrollRows"></tbody>
+            <tfoot id="payrollFoot"></tfoot>
+          </table>
+        </div>
+      </section>
+
+      <div class="page-actions">
+        <button type="button" class="btn btn-primary btn-lg" id="exportBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          Xuất bảng lương
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <script src="assets/store.js"></script>
+  <script src="assets/calc.js"></script>
+  <script src="assets/luong.js"></script>
+</body>
+</html>

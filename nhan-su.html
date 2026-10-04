@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nhân sự · Dogosa</title>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M3 15h18M9 4v5M15 9v6M9 15v5"/></svg>
+        </span>
+        Dogosa <small>Tính lương</small>
+      </a>
+      <nav class="nav">
+        <a href="index.html">Tính lương</a>
+        <a href="nhan-su.html" class="active">Nhân sự</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="page-head">
+      <div>
+        <h1>Danh sách nhân sự</h1>
+        <p class="muted" id="headCount">Chưa có nhân sự</p>
+      </div>
+    </div>
+
+    <div class="stats" id="wsStats"></div>
+
+    <div class="emp-layout">
+      <section class="card emp-form-card">
+        <div class="card-head">
+          <h2 id="formTitle">Thêm nhân sự</h2>
+          <span class="chip hint" id="editingBadge" hidden></span>
+        </div>
+        <form id="empForm" novalidate autocomplete="off">
+          <label class="field">
+            <span class="field-row"><span>Tên</span><span class="small muted" id="nameCount">0/300</span></span>
+            <input type="text" id="name" maxlength="300" placeholder="VD: Nam">
+            <span class="error-text" id="nameErr"></span>
+          </label>
+          <label class="field">
+            <span>Lương cứng</span>
+            <span class="input-suffix">
+              <input type="number" id="dailyWage" min="0" step="1" inputmode="numeric" placeholder="VD: 250">
+              <span class="suffix">k/ngày</span>
+            </span>
+            <span class="error-text" id="wageErr"></span>
+          </label>
+          <div class="field">
+            <span class="field-label">Phân xưởng tham gia</span>
+            <div class="pills" id="wsChecks"></div>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary" id="submitBtn">Thêm nhân sự</button>
+            <button type="button" class="btn btn-ghost" id="cancelBtn" hidden>Huỷ</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="card emp-list-card">
+        <div class="card-head">
+          <h2>Nhân sự</h2>
+        </div>
+        <div id="listEmpty" class="empty">
+          <div class="empty-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg>
+          </div>
+          <h3>Chưa có nhân sự nào</h3>
+          <p class="muted">Dùng form bên cạnh để thêm người đầu tiên.</p>
+        </div>
+        <div class="table-wrap" id="listWrap" hidden>
+          <table>
+            <thead>
+              <tr>
+                <th style="width:56px">ID</th>
+                <th>Tên</th>
+                <th class="num">Lương cứng</th>
+                <th>Phân xưởng</th>
+                <th style="width:84px"></th>
+              </tr>
+            </thead>
+            <tbody id="empRows"></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="assets/store.js"></script>
+  <script src="assets/nhan-su.js"></script>
+</body>
+</html>

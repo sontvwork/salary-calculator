@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bảng lương · Dogosa</title>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M3 15h18M9 4v5M15 9v6M9 15v5"/></svg>
+        </span>
+        Dogosa <small>Tính lương</small>
+      </a>
+      <nav class="nav">
+        <a href="index.html" class="active">Tính lương</a>
+        <a href="nhan-su.html">Nhân sự</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container print-page">
+    <div class="page-head">
+      <div>
+        <h1>Bảng lương tháng</h1>
+        <p class="muted">Ngày in: <span id="printDate"></span></p>
+      </div>
+      <div class="head-actions no-print">
+        <a class="btn btn-ghost" href="index.html">← Quay lại</a>
+        <button type="button" class="btn btn-primary" id="printBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          In
+        </button>
+      </div>
+    </div>
+
+    <section class="card empty" id="emptyState" hidden>
+      <div class="empty-icon">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 4v16"/></svg>
+      </div>
+      <h3>Chưa có dữ liệu ngày công</h3>
+      <p class="muted">Nhập ngày công của ít nhất 1 nhân sự ở trang Tính lương trước khi xuất bảng lương.</p>
+      <a class="btn btn-primary" href="index.html">Đi tới trang Tính lương</a>
+    </section>
+
+    <section class="card print-card" id="content" hidden>
+      <div id="warnings" class="no-print"></div>
+      <p class="small muted no-print print-hint">Nhập thưởng kéo gỗ, thưởng lễ tết và trừ lỗi theo đơn vị k (VD 70 = 70.000đ). Số liệu tự động lưu khi nhập.</p>
+      <div class="table-wrap">
+        <table class="print-table">
+          <thead id="printHead"></thead>
+          <tbody id="printRows"></tbody>
+          <tfoot id="printFoot"></tfoot>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/store.js"></script>
+  <script src="assets/calc.js"></script>
+  <script src="assets/bang-luong.js"></script>
+</body>
+</html>
