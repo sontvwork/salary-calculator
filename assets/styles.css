@@ -376,7 +376,8 @@ tbody tr.row-editing td { background: var(--accent-soft); }
 .print-table .input-cell { width: 72px; padding: 5px 8px; }
 .print-table tfoot td { border-top: 2px solid var(--border-strong); }
 .print-only { display: none; }
-.summary-wrap { margin-bottom: 16px; }
+.summary-wrap { margin-bottom: 40px; }
+.table-title { margin: 0 0 10px; font-size: 16px; font-weight: 700; text-align: center; }
 
 @media print {
   @page { size: A4 landscape; margin: 10mm; }
@@ -387,7 +388,8 @@ tbody tr.row-editing td { background: var(--accent-soft); }
   .page-head h1 { font-size: 18px; }
   .card { border: none; box-shadow: none; padding: 0; margin: 0; border-radius: 0; }
   .table-wrap { overflow: visible; margin: 0; padding: 0; }
-  .summary-wrap { margin-bottom: 10px; }
+  .summary-wrap { margin-bottom: 28px; }
+  .table-title { margin-bottom: 6px; font-size: 13px; color: #000; }
   .print-table { font-size: 11px; }
   .print-table th, .print-table td { border-color: #999; padding: 4px 6px; }
   .print-table th { font-size: 10px; color: #000; background: #eee; -webkit-print-color-adjust: exact; print-color-adjust: exact; }

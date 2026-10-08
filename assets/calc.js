@@ -22,7 +22,6 @@
         emp,
         workDays,
         base: Math.round(workDays * dailyVnd),
-        attendance: workDays >= D.ATTENDANCE_THRESHOLD ? dailyVnd : 0,
         bonusByWs: {},
         bonus: 0,
         total: 0,
@@ -66,12 +65,12 @@
       return info;
     });
 
-    // total: lương cứng + thưởng SP + chuyên cần. net: total cộng/trừ các khoản nhập tay trên trang in
+    // total: lương cứng + thưởng SP. net: total cộng/trừ các khoản nhập tay trên trang in
     const extrasSrc = month.extras || {};
-    const totals = { base: 0, bonus: 0, attendance: 0, total: 0, extras: {}, net: 0 };
+    const totals = { base: 0, bonus: 0, total: 0, extras: {}, net: 0 };
     for (const x of D.EXTRAS) totals.extras[x.key] = 0;
     for (const r of rows) {
-      r.total = r.base + r.bonus + r.attendance;
+      r.total = r.base + r.bonus;
       r.net = r.total;
       for (const x of D.EXTRAS) {
         const v = Math.round(nonNeg((extrasSrc[x.key] || {})[r.emp.id]) * K);
@@ -81,7 +80,6 @@
       }
       totals.base += r.base;
       totals.bonus += r.bonus;
-      totals.attendance += r.attendance;
       totals.total += r.total;
       totals.net += r.net;
     }

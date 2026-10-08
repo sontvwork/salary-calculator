@@ -35,7 +35,6 @@
     $('emptyState').hidden = hasEmp;
     $('content').hidden = !hasEmp;
     $('resetMonth').hidden = !hasEmp;
-    $('threshold').textContent = D.ATTENDANCE_THRESHOLD;
     if (!hasEmp) return;
 
     $('products').value = valueOf(month.products);
@@ -142,7 +141,6 @@
           <td class="num">${fmtNum(row.workDays)}</td>
           <td class="num">${fmtMoney(row.base)}</td>
           <td class="num">${fmtMoney(row.bonus)}${parts ? `<span class="sub">${parts}</span>` : ''}</td>
-          <td class="num">${row.attendance ? fmtMoney(row.attendance) : '<span class="muted">—</span>'}</td>
           <td class="num total-cell">${fmtMoney(row.total)}</td>
         </tr>`;
       })
@@ -158,7 +156,6 @@
       <td></td>
       <td class="num">${fmtMoney(t.base)}</td>
       <td class="num">${fmtMoney(t.bonus)}</td>
-      <td class="num">${fmtMoney(t.attendance)}</td>
       <td class="num total-cell">${fmtMoney(t.total)}</td>
     </tr>`;
   }

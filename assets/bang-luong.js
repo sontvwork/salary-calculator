@@ -69,7 +69,6 @@
     $('printHead').innerHTML = `<tr>
         <th rowspan="2">Tên</th>
         <th rowspan="2" class="num">Lương cứng</th>
-        <th rowspan="2" class="num">Chuyên cần</th>
         <th colspan="${WORKSHOPS.length}" class="group">Thưởng sản phẩm</th>
         ${EXTRAS.map((x) => `<th rowspan="2" class="num">${x.name}</th>`).join('')}
         <th rowspan="2" class="num">Tổng</th>
@@ -82,7 +81,6 @@
         return `<tr>
           <td class="name-cell">${escapeHtml(e.name)}</td>
           <td class="num">${k(row.base)}<span class="sub">${fmtK(e.dailyWage)} × ${fmtNum(row.workDays)}</span></td>
-          <td class="num">${kOrDash(row.attendance)}</td>
           ${WORKSHOPS.map((w) => `<td class="num">${kOrDash(row.bonusByWs[w.key])}</td>`).join('')}
           ${EXTRAS.map(
             (x) => `<td class="num"><input type="number" class="input-cell" min="0" step="1" inputmode="numeric"
@@ -111,7 +109,6 @@
     $('printFoot').innerHTML = `<tr>
       <td>Tổng cộng (${rows.length} người)</td>
       <td class="num">${k(sum((row) => row.base))}</td>
-      <td class="num">${k(sum((row) => row.attendance))}</td>
       ${WORKSHOPS.map((w) => `<td class="num">${k(sum((row) => row.bonusByWs[w.key] || 0))}</td>`).join('')}
       ${EXTRAS.map((x) => `<td class="num">${k(sum((row) => row.extras[x.key]))}</td>`).join('')}
       <td class="num total-cell">${k(sum((row) => row.net))}</td>
