@@ -370,13 +370,13 @@ tbody tr.row-editing td { background: var(--accent-soft); }
 .print-hint { margin: 0 0 12px; }
 .print-table { font-size: 14px; }
 .print-table th, .print-table td { border: 1px solid var(--border); padding: 8px 10px; }
-.print-table th { white-space: normal; vertical-align: bottom; border-radius: 0; }
-.print-table th.group { text-align: center; vertical-align: middle; }
+.print-table th { white-space: normal; text-align: center; vertical-align: middle; border-radius: 0; }
 .print-table th.sub-th { text-transform: none; letter-spacing: 0; font-size: 12.5px; white-space: nowrap; }
 .print-table .name-cell { max-width: 220px; }
 .print-table .input-cell { width: 72px; padding: 5px 8px; }
 .print-table tfoot td { border-top: 2px solid var(--border-strong); }
 .print-only { display: none; }
+.summary-wrap { margin-bottom: 16px; }
 
 @media print {
   @page { size: A4 landscape; margin: 10mm; }
@@ -387,6 +387,7 @@ tbody tr.row-editing td { background: var(--accent-soft); }
   .page-head h1 { font-size: 18px; }
   .card { border: none; box-shadow: none; padding: 0; margin: 0; border-radius: 0; }
   .table-wrap { overflow: visible; margin: 0; padding: 0; }
+  .summary-wrap { margin-bottom: 10px; }
   .print-table { font-size: 11px; }
   .print-table th, .print-table td { border-color: #999; padding: 4px 6px; }
   .print-table th { font-size: 10px; color: #000; background: #eee; -webkit-print-color-adjust: exact; print-color-adjust: exact; }

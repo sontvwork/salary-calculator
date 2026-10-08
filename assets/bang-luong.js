@@ -42,6 +42,30 @@
 
     $('warnings').innerHTML = r.warnings.map((w) => `<div class="callout callout-warn">${escapeHtml(w)}</div>`).join('');
 
+    // Bảng tổng hợp thưởng sản phẩm: tổng quỹ cả xưởng và quỹ từng phân xưởng
+    $('summaryHead').innerHTML = `<tr>
+        <th rowspan="2" class="num">Số sản phẩm</th>
+        <th rowspan="2" class="num">Mức thưởng / SP</th>
+        <th rowspan="2" class="num">Tổng thưởng cả xưởng</th>
+        <th colspan="${WORKSHOPS.length}" class="group">Thưởng theo phân xưởng</th>
+      </tr>
+      <tr>${WORKSHOPS.map((w) => `<th class="num sub-th">${w.name} (${Math.round(w.share * 100)}%)</th>`).join('')}</tr>`;
+
+    $('summaryRows').innerHTML = `<tr>
+        <td class="num">${fmtNum(month.products)}</td>
+        <td class="num">${fmtK(settings.bonusPerProduct)}</td>
+        <td class="num total-cell">${k(r.totalBonus)}</td>
+        ${r.workshops
+          .map(({ ws, pool, members, mode, totalUnits }) => {
+            let sub;
+            if (mode === 'empty') sub = 'Chưa có nhân sự';
+            else if (mode === 'single') sub = '1 người';
+            else sub = `${members.length} người · ${fmtNum(totalUnits)} ${ws.unit}`;
+            return `<td class="num">${k(pool)}<span class="sub">${sub}</span></td>`;
+          })
+          .join('')}
+      </tr>`;
+
     $('printHead').innerHTML = `<tr>
         <th rowspan="2">Tên</th>
         <th rowspan="2" class="num">Lương cứng</th>
