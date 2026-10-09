@@ -11,9 +11,9 @@
   ];
   // Các khoản nhập tay trên trang in bảng lương (đơn vị k). sign: +1 cộng, -1 trừ
   D.EXTRAS = [
-    { key: 'attendance', name: 'Thưởng chuyên cần', sign: 1 },
-    { key: 'wood', name: 'Thưởng kéo gỗ', sign: 1 },
-    { key: 'holiday', name: 'Thưởng lễ tết', sign: 1 },
+    { key: 'attendance', name: 'Thưởng chuyên cần', short: 'Chuyên cần', sign: 1 },
+    { key: 'wood', name: 'Thưởng kéo gỗ', short: 'Kéo gỗ', sign: 1 },
+    { key: 'holiday', name: 'Thưởng lễ tết', short: 'Lễ tết', sign: 1 },
     { key: 'penalty', name: 'Trừ lỗi', sign: -1 },
   ];
   D.DEFAULT_BONUS_PER_PRODUCT = 10; // k / sản phẩm

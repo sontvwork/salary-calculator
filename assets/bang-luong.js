@@ -3,6 +3,9 @@
   'use strict';
   const D = window.Dogosa;
   const { store, WORKSHOPS, EXTRAS, escapeHtml, fmtNum, fmtK } = D;
+  // Các khoản cộng gom vào nhóm "Thưởng khác"; khoản trừ giữ cột riêng
+  const BONUS_EXTRAS = EXTRAS.filter((x) => x.sign > 0);
+  const PENALTY_EXTRAS = EXTRAS.filter((x) => x.sign < 0);
   const $ = (id) => document.getElementById(id);
 
   let employees, settings, month;
@@ -70,10 +73,12 @@
         <th rowspan="2">Tên</th>
         <th rowspan="2" class="num">Lương cứng</th>
         <th colspan="${WORKSHOPS.length}" class="group">Thưởng sản phẩm</th>
-        ${EXTRAS.map((x) => `<th rowspan="2" class="num">${x.name}</th>`).join('')}
+        <th colspan="${BONUS_EXTRAS.length}" class="group">Thưởng khác</th>
+        ${PENALTY_EXTRAS.map((x) => `<th rowspan="2" class="num">${x.name}</th>`).join('')}
         <th rowspan="2" class="num">Tổng</th>
       </tr>
-      <tr>${WORKSHOPS.map((w) => `<th class="num sub-th">${w.name}</th>`).join('')}</tr>`;
+      <tr>${WORKSHOPS.map((w) => `<th class="num sub-th">${w.name}</th>`).join('')}
+        ${BONUS_EXTRAS.map((x) => `<th class="num sub-th">${x.short}</th>`).join('')}</tr>`;
 
     $('printRows').innerHTML = rows
       .map((row) => {
@@ -107,7 +112,7 @@
     }
 
     $('printFoot').innerHTML = `<tr>
-      <td>Tổng cộng (${rows.length} người)</td>
+      <td>Tổng (${rows.length} người)</td>
       <td class="num">${k(sum((row) => row.base))}</td>
       ${WORKSHOPS.map((w) => `<td class="num">${k(sum((row) => row.bonusByWs[w.key] || 0))}</td>`).join('')}
       ${EXTRAS.map((x) => `<td class="num">${k(sum((row) => row.extras[x.key]))}</td>`).join('')}
