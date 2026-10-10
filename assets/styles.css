@@ -377,11 +377,13 @@ tbody tr.row-editing td { background: var(--accent-soft); }
 .print-table tfoot td { border-top: 2px solid var(--border-strong); }
 .print-only { display: none; }
 .summary-wrap { margin-bottom: 40px; }
+.month-input { width: 64px; padding: 4px 8px; text-align: center; font-size: 22px; font-weight: 700; vertical-align: middle; }
 .table-title { margin: 0 0 10px; font-size: 16px; font-weight: 700; text-align: center; }
 
 @media print {
-  @page { size: A4 landscape; margin: 10mm; }
-  body { background: #fff; font-size: 15px; }
+  /* margin-top = 0 để trình duyệt không in dòng ngày giờ + tiêu đề trang ở đầu giấy */
+  @page { size: A4 landscape; margin: 0 10mm 10mm; }
+  body { background: #fff; font-size: 15px; padding-top: 10mm; }
   .topbar, .no-print, .toasts { display: none !important; }
   .container { max-width: none; padding: 0; }
   .page-head { margin-bottom: 10px; }

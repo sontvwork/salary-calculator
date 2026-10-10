@@ -141,7 +141,37 @@
     el.value = valueOf(month.extras[el.dataset.extra][el.dataset.emp]);
   });
 
-  $('printBtn').addEventListener('click', () => window.print());
+  /* ---------- Tháng của bảng lương (mặc định tháng trước, không lưu) ---------- */
+  const monthInput = $('monthInput');
+  monthInput.value = new Date().getMonth() || 12; // getMonth() 0-based = tháng trước; tháng 1 → 12
+
+  // Tháng hợp lệ 1–12; sai thì trả null
+  function selectedMonth() {
+    const n = Number(monthInput.value);
+    return Number.isInteger(n) && n >= 1 && n <= 12 ? n : null;
+  }
+
+  // Đồng bộ sang bản in ngay khi gõ, để in bằng Ctrl+P cũng đúng tháng
+  function syncMonth() {
+    const m = selectedMonth();
+    monthInput.classList.toggle('invalid', m == null);
+    $('monthPrint').textContent = m == null ? '' : m;
+  }
+  monthInput.addEventListener('input', syncMonth);
+  syncMonth();
+
+  $('printBtn').addEventListener('click', () => {
+    const m = selectedMonth();
+    if (m == null) {
+      D.toast('Tháng phải là số nguyên từ 1 đến 12', 'danger');
+      monthInput.focus();
+      return;
+    }
+    const oldTitle = document.title;
+    document.title = 'Bảng lương tháng ' + m; // tên file mặc định khi lưu PDF
+    window.print();
+    document.title = oldTitle;
+  });
 
   // Đồng bộ khi trang khác (tab khác) thay đổi dữ liệu
   window.addEventListener('storage', (ev) => {
